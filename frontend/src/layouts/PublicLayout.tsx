@@ -40,7 +40,6 @@ export function PublicLayout() {
             </span>
             <span className="leading-tight">
               <span className="block font-display text-xl font-bold">Šifa Hidžama</span>
-              <span className="block text-xs font-bold uppercase tracking-[0.18em] text-forest">Porječani, Visoko</span>
             </span>
           </Link>
           <div className="hidden items-center rounded-full border border-forest/10 bg-white/55 p-1 shadow-sm lg:flex">{links}</div>
@@ -75,7 +74,7 @@ export function PublicLayout() {
           </Link>
         </div>
       </div>
-      <footer className="border-t border-forest/10 bg-ink pb-20 text-white md:pb-0">
+      <footer className="footer-dark border-t border-white/10 pb-20 text-white md:pb-0">
         <div className="mx-auto grid max-w-7xl gap-8 px-4 py-12 lg:grid-cols-[1.2fr_.8fr_.8fr]">
           <div>
             <div className="flex items-center gap-3">
@@ -85,10 +84,10 @@ export function PublicLayout() {
                 <p className="text-xs font-bold uppercase tracking-[0.22em] text-gold">Bosna i Hercegovina</p>
               </div>
             </div>
-            <p className="mt-5 max-w-xl text-sm leading-7 text-white/70">
+            <p className="mt-5 max-w-xl text-sm leading-7 text-white/72">
               Profesionalna hidžama, akupunktura i terapija čašama u Porječanima kod Visokog. Diskretan pristup, sterilna oprema i online rezervacije.
             </p>
-            <div className="mt-5 flex flex-wrap gap-2 text-xs font-bold uppercase tracking-[0.12em] text-white/65">
+            <div className="mt-5 flex flex-wrap gap-2 text-xs font-bold uppercase tracking-[0.12em] text-white/70">
               <span className="rounded-full border border-white/15 px-3 py-1.5"><ShieldCheck className="mr-1 inline h-3.5 w-3.5 text-gold" /> Od 2006</span>
               <span className="rounded-full border border-white/15 px-3 py-1.5">Sunnetska praksa</span>
               <span className="rounded-full border border-white/15 px-3 py-1.5">Porječani, Visoko</span>
@@ -96,12 +95,12 @@ export function PublicLayout() {
           </div>
           <div>
             <p className="font-bold">{t('contact.hours')}</p>
-            <p className="mt-4 flex gap-2 text-sm text-white/72"><Clock3 className="mt-0.5 h-4 w-4 text-gold" /> Pon-Sub 09:00-18:00</p>
+            <p className="mt-4 flex gap-2 text-sm text-white/75"><Clock3 className="mt-0.5 h-4 w-4 text-gold" /> Pon-Sub 09:00-18:00</p>
             <Link className="mt-5 inline-flex rounded-full bg-gold px-5 py-3 text-sm font-extrabold text-ink" to="/booking">{t('cta.book')}</Link>
           </div>
           <div>
             <p className="font-bold">Kontakt</p>
-            <div className="mt-4 grid gap-3 text-sm text-white/72">
+            <div className="mt-4 grid gap-3 text-sm text-white/75">
               <p>Amir Uzunović</p>
               <p className="flex gap-2"><MapPin className="mt-0.5 h-4 w-4 text-gold" /> Porječani, Visoko</p>
               <a className="flex gap-2 font-bold text-white" href="tel:+38761497647"><Phone className="mt-0.5 h-4 w-4 text-gold" /> 061 497 647</a>
@@ -110,7 +109,7 @@ export function PublicLayout() {
           </div>
         </div>
         <div className="border-t border-white/10">
-          <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-3 px-4 py-5 text-xs font-semibold text-white/55">
+          <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-3 px-4 py-5 text-xs font-semibold text-white/60">
             <p>© 2026 Šifa Hidžama. Sva prava zadržana.</p>
             <p>sifahidzama.ba</p>
           </div>

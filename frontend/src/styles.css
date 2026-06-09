@@ -104,6 +104,18 @@ html.dark .surface-card {
     linear-gradient(135deg, rgb(var(--color-forest)), rgb(12 56 44));
 }
 
+.footer-dark {
+  background:
+    radial-gradient(circle at 12% 0%, rgb(226 176 86 / .14), transparent 28rem),
+    linear-gradient(180deg, #10211b 0%, #08100d 100%);
+}
+
+html.dark .footer-dark {
+  background:
+    radial-gradient(circle at 12% 0%, rgb(226 176 86 / .13), transparent 28rem),
+    linear-gradient(180deg, #0e1915 0%, #050907 100%);
+}
+
 .pattern {
   background-image:
     radial-gradient(circle at 20% 20%, rgb(var(--color-gold) / .16), transparent 24rem),

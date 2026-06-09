@@ -53,10 +53,14 @@ export type Availability = {
   booked: string[];
 };
 
-async function csrfToken() {
+let cachedCsrfToken = '';
+
+async function csrfToken(forceRefresh = false) {
+  if (cachedCsrfToken && !forceRefresh) return cachedCsrfToken;
   const response = await fetch(`${API_URL}/csrf-token`, { credentials: 'include' });
   const data = await response.json();
-  return data.csrfToken as string;
+  cachedCsrfToken = data.csrfToken as string;
+  return cachedCsrfToken;
 }
 
 export async function api<T>(path: string, options: RequestInit = {}): Promise<T> {
@@ -67,11 +71,20 @@ export async function api<T>(path: string, options: RequestInit = {}): Promise<T
     headers.set('X-CSRF-Token', await csrfToken());
   }
 
-  const response = await fetch(`${API_URL}${path}`, {
+  let response = await fetch(`${API_URL}${path}`, {
     ...options,
     headers,
     credentials: 'include'
   });
+
+  if (response.status === 403 && options.method && options.method !== 'GET') {
+    headers.set('X-CSRF-Token', await csrfToken(true));
+    response = await fetch(`${API_URL}${path}`, {
+      ...options,
+      headers,
+      credentials: 'include'
+    });
+  }
 
   if (!response.ok) {
     const error = await response.json().catch(() => ({ message: 'Request failed' }));
