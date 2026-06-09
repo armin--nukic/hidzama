@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="360" height="360" viewBox="0 0 360 360" role="img" aria-labelledby="title desc">
+  <title id="title">Klijent iskustvo Adnan</title>
+  <desc id="desc">Elegantna ilustracija klijenta za iskustva Šifa Hidžama.</desc>
+  <rect width="360" height="360" rx="40" fill="#edf3eb"/>
+  <circle cx="180" cy="136" r="76" fill="#17211d"/>
+  <circle cx="180" cy="138" r="50" fill="#c28f38"/>
+  <path d="M76 320c10-78 63-124 104-124s94 46 104 124" fill="#15684e"/>
+  <path d="M131 119c12-37 87-44 102 4-28-9-63-9-102-4z" fill="#17211d"/>
+  <circle cx="162" cy="141" r="5" fill="#17211d"/>
+  <circle cx="199" cy="141" r="5" fill="#17211d"/>
+  <path d="M160 166c16 10 27 10 42 0" fill="none" stroke="#17211d" stroke-width="7" stroke-linecap="round"/>
+  <path d="M86 69c36 20 83 30 138 26" fill="none" stroke="#c28f38" stroke-width="7" stroke-linecap="round" opacity=".5"/>
+</svg>

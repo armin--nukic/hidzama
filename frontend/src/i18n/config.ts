@@ -8,7 +8,7 @@ const resources = {
       cta: { book: 'Rezerviši termin', call: 'Pozovi nas', details: 'Saznaj više' },
       home: {
         eyebrow: 'Profesionalna hidžama i akupunktura u BiH',
-        title: 'Sifa Hidžama',
+        title: 'Šifa Hidžama',
         subtitle: 'Siguran, čist i smiren pristup hidžami, akupunkturi i terapiji čašama, uz poštovanje tradicije i savremenih standarda.',
         benefits: 'Koristi tretmana',
         services: 'Usluge',
@@ -17,7 +17,7 @@ const resources = {
       },
       about: {
         title: 'O nama',
-        story: 'Sifa Hidžama je ordinacija posvećena stručnoj, diskretnoj i pažljivo planiranoj hidžami i akupunkturi.',
+        story: 'Šifa Hidžama je ordinacija posvećena stručnoj, diskretnoj i pažljivo planiranoj hidžami i akupunkturi.',
         mission: 'Misija',
         missionText: 'Pružiti sigurnu terapiju uz edukaciju, povjerenje i poštovanje svakog klijenta.',
         vision: 'Vizija',
@@ -45,7 +45,7 @@ const resources = {
         dashboard: 'Pregled',
         stats: 'Statistika',
         overview: 'Administracija ordinacije',
-        overviewText: 'Brzi pregled rezervacija, upita i aktivnosti za Sifa Hidžama.',
+        overviewText: 'Brzi pregled rezervacija, upita i aktivnosti za Šifa Hidžama.',
         appointments: 'Termini',
         contacts: 'Kontakt upiti',
         services: 'Usluge',

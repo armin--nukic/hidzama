@@ -12,10 +12,12 @@ export default {
         pearl: 'rgb(var(--color-pearl) / <alpha-value>)'
       },
       fontFamily: {
-        sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif']
+        sans: ['Manrope', 'Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        display: ['Fraunces', 'Georgia', 'serif']
       },
       boxShadow: {
-        soft: '0 18px 50px rgba(23, 33, 29, 0.12)'
+        soft: '0 18px 50px rgba(23, 33, 29, 0.12)',
+        glow: '0 24px 80px rgba(31, 92, 74, 0.18)'
       }
     }
   },

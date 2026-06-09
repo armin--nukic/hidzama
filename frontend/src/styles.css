@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Manrope:wght@400;500;600;700;800&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -5,13 +7,16 @@
 :root {
   color-scheme: light;
   --color-ink: 23 33 29;
-  --color-forest: 31 92 74;
-  --color-sage: 223 232 223;
-  --color-gold: 185 139 63;
-  --color-clay: 181 107 74;
-  --color-pearl: 248 246 239;
-  background: #f8f6ef;
-  color: #17211d;
+  --color-forest: 21 104 78;
+  --color-sage: 224 235 226;
+  --color-gold: 194 143 56;
+  --color-clay: 178 87 67;
+  --color-pearl: 250 248 241;
+  --surface: 255 255 255;
+  --surface-soft: 244 239 225;
+  --line: 31 92 74;
+  background: rgb(var(--color-pearl));
+  color: rgb(var(--color-ink));
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -19,14 +24,17 @@
 
 html.dark {
   color-scheme: dark;
-  --color-ink: 232 238 232;
-  --color-forest: 68 151 123;
-  --color-sage: 38 52 46;
-  --color-gold: 215 172 87;
-  --color-clay: 207 117 86;
-  --color-pearl: 14 20 18;
-  background: #0e1412;
-  color: #e8eee8;
+  --color-ink: 235 242 236;
+  --color-forest: 77 169 132;
+  --color-sage: 37 53 47;
+  --color-gold: 226 176 86;
+  --color-clay: 220 115 91;
+  --color-pearl: 10 15 13;
+  --surface: 18 27 23;
+  --surface-soft: 24 36 31;
+  --line: 91 160 132;
+  background: rgb(var(--color-pearl));
+  color: rgb(var(--color-ink));
 }
 
 body {
@@ -35,35 +43,72 @@ body {
   min-height: 100vh;
   background: rgb(var(--color-pearl));
   color: rgb(var(--color-ink));
+  font-family: Manrope, Inter, ui-sans-serif, system-ui, sans-serif;
+}
+
+::selection {
+  background: rgb(var(--color-gold) / .35);
 }
 
 html.dark .bg-white {
-  background-color: rgb(21 30 26);
+  background-color: rgb(var(--surface));
 }
 
 html.dark .bg-white\/85 {
-  background-color: rgb(21 30 26 / .88);
+  background-color: rgb(var(--surface) / .88);
 }
 
 html.dark .bg-white\/95 {
-  background-color: rgb(21 30 26 / .94);
+  background-color: rgb(var(--surface) / .94);
 }
 
 html.dark input,
 html.dark select,
 html.dark textarea {
-  background-color: rgb(18 26 22);
+  background-color: rgb(var(--surface-soft));
   color: rgb(var(--color-ink));
+  border-color: rgb(var(--color-forest) / .35);
 }
 
 html.dark img {
   color-scheme: light;
 }
 
+.glass-nav {
+  background:
+    linear-gradient(135deg, rgb(var(--color-pearl) / .92), rgb(var(--surface) / .82));
+  box-shadow: 0 16px 50px rgb(23 33 29 / .08);
+}
+
+html.dark .glass-nav {
+  background:
+    linear-gradient(135deg, rgb(12 18 16 / .92), rgb(23 34 29 / .82));
+  box-shadow: 0 18px 60px rgb(0 0 0 / .28);
+}
+
+.surface-card {
+  border: 1px solid rgb(var(--line) / .12);
+  background:
+    linear-gradient(180deg, rgb(var(--surface) / .96), rgb(var(--surface) / .88));
+  box-shadow: 0 18px 50px rgb(23 33 29 / .10);
+}
+
+html.dark .surface-card {
+  border-color: rgb(var(--line) / .18);
+  box-shadow: 0 22px 70px rgb(0 0 0 / .30);
+}
+
+.brand-mark {
+  background:
+    radial-gradient(circle at 30% 20%, rgb(var(--color-gold) / .42), transparent 34%),
+    linear-gradient(135deg, rgb(var(--color-forest)), rgb(12 56 44));
+}
+
 .pattern {
   background-image:
-    linear-gradient(30deg, rgba(31, 92, 74, 0.08) 12%, transparent 12.5%, transparent 87%, rgba(31, 92, 74, 0.08) 87.5%, rgba(31, 92, 74, 0.08)),
-    linear-gradient(150deg, rgba(185, 139, 63, 0.10) 12%, transparent 12.5%, transparent 87%, rgba(185, 139, 63, 0.10) 87.5%, rgba(185, 139, 63, 0.10));
+    radial-gradient(circle at 20% 20%, rgb(var(--color-gold) / .16), transparent 24rem),
+    linear-gradient(30deg, rgb(var(--color-forest) / .08) 12%, transparent 12.5%, transparent 87%, rgb(var(--color-forest) / .08) 87.5%, rgb(var(--color-forest) / .08)),
+    linear-gradient(150deg, rgb(var(--color-gold) / .10) 12%, transparent 12.5%, transparent 87%, rgb(var(--color-gold) / .10) 87.5%, rgb(var(--color-gold) / .10));
   background-size: 56px 98px;
 }
 
