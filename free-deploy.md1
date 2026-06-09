@@ -1,0 +1,439 @@
+# Free Deploy MD1 - Neon + Render + Vercel
+
+Ovo je detaljno uputstvo za ovaj projekat:
+
+- Database: Neon PostgreSQL
+- Backend/API: Render Web Service
+- Frontend: Vercel
+- Lokalni projekat: `C:\programming\hidzamaaaa`
+
+## 0. Važna greška koju si dobio na Renderu
+
+Na Renderu si dobio:
+
+```text
+TS7016: Could not find a declaration file for module 'bcryptjs'
+TS7016: Could not find a declaration file for module 'nodemailer'
+TS7016: Could not find a declaration file for module 'jsonwebtoken'
+```
+
+Uzrok: Render kod tebe nije imao TypeScript `@types` pakete tokom builda.
+
+Popravka je već urađena u projektu:
+
+- `backend/package.json` sada ima TypeScript, Prisma, TSX i `@types/*` u `dependencies`
+- `backend/src/routes/public.ts` ima eksplicitne tipove za dva callbacka
+- lokalni `npm run build` u backendu prolazi
+
+Prije novog deploya moraš pushati ove izmjene na GitHub.
+
+```bash
+git add .
+git commit -m "Fix Render backend build and add deploy guide"
+git push
+```
+
+Ako nisi još napravio Git repo:
+
+```bash
+git init
+git add .
+git commit -m "Initial deploy"
+git branch -M main
+git remote add origin https://github.com/USERNAME/hidzama.git
+git push -u origin main
+```
+
+## 1. Neon PostgreSQL
+
+### 1.1 Napravi Neon projekat
+
+1. Otvori https://neon.tech
+2. New Project
+3. Izaberi region blizu Evrope ako može
+4. Sačuvaj connection string
+
+### 1.2 Koji connection string uzeti
+
+Za ovaj Render backend najjednostavnije uzmi Neon direct PostgreSQL connection string, ne pooled, zato što backend na startu pokreće Prisma migracije.
+
+Treba izgledati otprilike ovako:
+
+```env
+postgresql://USER:PASSWORD@HOST.neon.tech/DBNAME?sslmode=require
+```
+
+Ako Neon da URL bez `sslmode=require`, dodaj na kraj:
+
+```text
+?sslmode=require
+```
+
+Ako URL već ima `?`, onda dodaj:
+
+```text
+&sslmode=require
+```
+
+Primjer:
+
+```env
+DATABASE_URL=postgresql://sifa_owner:password@ep-example.eu-central-1.aws.neon.tech/sifa?sslmode=require
+```
+
+Nemoj stavljati navodnike oko `DATABASE_URL` u Render dashboardu.
+
+## 2. Render backend
+
+Backend ide na Render kao Web Service.
+
+### 2.1 Napravi Web Service
+
+1. Otvori https://render.com
+2. New
+3. Web Service
+4. Connect GitHub repo
+5. Izaberi repo `hidzama`
+6. Runtime: Node
+7. Instance: Free
+
+### 2.2 Render postavke
+
+Postavi tačno ovako:
+
+```text
+Name: hidzama-api
+Root Directory: backend
+Runtime: Node
+Branch: main
+Build Command: npm install && npm run db:generate && npm run build
+Start Command: npm run db:migrate && npm run db:seed && npm start
+```
+
+Ako opet vidiš grešku za `@types`, koristi ovu build komandu:
+
+```text
+npm install --include=dev && npm run db:generate && npm run build
+```
+
+Ali nakon zadnje popravke ne bi trebalo.
+
+### 2.3 Render environment variables
+
+U Renderu idi na:
+
+```text
+Service -> Environment -> Add Environment Variable
+```
+
+Dodaj:
+
+```env
+NODE_ENV=production
+PORT=4000
+DATABASE_URL=OVDJE_IDE_NEON_DATABASE_URL
+JWT_SECRET=napravi_dug_random_secret_minimum_32_znaka_123
+JWT_EXPIRES_IN=7d
+ADMIN_EMAIL=admin@sifahidzama.ba
+ADMIN_PASSWORD=PromijeniOvoOdmah123!
+FRONTEND_URL=https://tvoj-vercel-url.vercel.app
+BACKEND_URL=https://hidzama-api.onrender.com
+SMTP_HOST=smtp.gmail.com
+SMTP_PORT=587
+SMTP_SECURE=false
+SMTP_USER=tvojgmail@gmail.com
+SMTP_PASS=tvoj_google_app_password
+MAIL_FROM=Sifa Hidžama <tvojgmail@gmail.com>
+NOTIFY_EMAIL=tvojgmail@gmail.com
+```
+
+Za tvoju trenutnu Render adresu sa screenshota vjerovatno:
+
+```env
+BACKEND_URL=https://hidzama.onrender.com
+```
+
+Kasnije kad Vercel napravi frontend URL, vrati se u Render i promijeni:
+
+```env
+FRONTEND_URL=https://tvoj-vercel-url.vercel.app
+```
+
+Nakon promjene environment variables klikni:
+
+```text
+Manual Deploy -> Clear build cache & deploy
+```
+
+### 2.4 Provjeri backend
+
+Kad deploy prođe, otvori:
+
+```text
+https://hidzama.onrender.com/health
+```
+
+Treba vratiti nešto kao:
+
+```json
+{"ok":true,"service":"sifa-hijama-api"}
+```
+
+API baza:
+
+```text
+https://hidzama.onrender.com/api/services
+```
+
+Treba vratiti JSON listu usluga.
+
+## 3. Vercel frontend
+
+Frontend ide na Vercel.
+
+### 3.1 Napravi Vercel projekat
+
+1. Otvori https://vercel.com
+2. Add New Project
+3. Import GitHub repo
+4. Framework Preset: Vite
+5. Root Directory: `frontend`
+
+### 3.2 Vercel build postavke
+
+Postavi:
+
+```text
+Framework Preset: Vite
+Root Directory: frontend
+Build Command: npm run build
+Output Directory: dist
+Install Command: npm install
+```
+
+### 3.3 Vercel environment variable
+
+Dodaj environment variable:
+
+```env
+VITE_API_URL=https://hidzama.onrender.com/api
+```
+
+Važno: mora početi sa `VITE_`, jer Vite/Vercel samo tako izloži varijablu frontend kodu.
+
+Ako Render backend URL nije `https://hidzama.onrender.com`, koristi svoj tačan Render URL.
+
+Primjer:
+
+```env
+VITE_API_URL=https://hidzama-api.onrender.com/api
+```
+
+Nakon dodavanja env varijable uradi redeploy na Vercelu.
+
+## 4. Poveži Render i Vercel
+
+Kad Vercel deploy završi, dobit ćeš URL npr:
+
+```text
+https://hidzama.vercel.app
+```
+
+Vrati se na Render backend environment variables i postavi:
+
+```env
+FRONTEND_URL=https://hidzama.vercel.app
+```
+
+Zatim u Renderu klikni:
+
+```text
+Manual Deploy -> Deploy latest commit
+```
+
+Ovo je važno zbog CORS zaštite. Backend dozvoljava requeste samo sa `FRONTEND_URL`.
+
+## 5. Admin login
+
+Kad je sve deployano, otvori:
+
+```text
+https://hidzama.vercel.app/admin/login
+```
+
+Login:
+
+```text
+Email: vrijednost iz ADMIN_EMAIL
+Password: vrijednost iz ADMIN_PASSWORD
+```
+
+Primjer:
+
+```text
+Email: admin@sifahidzama.ba
+Password: PromijeniOvoOdmah123!
+```
+
+## 6. Email notifikacije
+
+Za Gmail moraš koristiti Google App Password, ne normalnu Gmail lozinku.
+
+### Koraci
+
+1. Uključi 2-Step Verification na Google account
+2. Otvori Google App Passwords
+3. Napravi app password za Mail
+4. Kopiraj 16-character password
+5. U Render stavi:
+
+```env
+SMTP_HOST=smtp.gmail.com
+SMTP_PORT=587
+SMTP_SECURE=false
+SMTP_USER=tvojgmail@gmail.com
+SMTP_PASS=abcdefghijklmnop
+MAIL_FROM=Sifa Hidžama <tvojgmail@gmail.com>
+NOTIFY_EMAIL=amir@gmail.com
+```
+
+`NOTIFY_EMAIL` je email gdje vlasnik prima obavijest za rezervaciju i kontakt formu.
+
+Ako hoćeš da Amir prima na Gmail:
+
+```env
+NOTIFY_EMAIL=amirov.email@gmail.com
+```
+
+## 7. Najčešći problemi
+
+### Problem: Render build failed sa TS7016
+
+Rješenje:
+
+1. Uradi `git pull`/provjeri da imaš zadnje izmjene
+2. Pushaj `backend/package.json` i `backend/package-lock.json`
+3. Render -> Manual Deploy -> Clear build cache & deploy
+
+Alternativna build komanda:
+
+```text
+npm install --include=dev && npm run db:generate && npm run build
+```
+
+### Problem: Vercel sajt se otvori, ali podaci ne rade
+
+Provjeri `VITE_API_URL`.
+
+Mora biti:
+
+```env
+VITE_API_URL=https://tvoj-render-backend.onrender.com/api
+```
+
+Ne smije biti:
+
+```env
+VITE_API_URL=http://localhost:4000/api
+```
+
+### Problem: CORS error u browseru
+
+U Render backendu `FRONTEND_URL` mora biti tačan Vercel URL:
+
+```env
+FRONTEND_URL=https://tvoj-vercel-url.vercel.app
+```
+
+Nakon toga redeploy backend.
+
+### Problem: Prisma migrate ne radi sa Neon
+
+Provjeri da `DATABASE_URL` ima:
+
+```text
+sslmode=require
+```
+
+Koristi direct Neon connection string za migracije. Ako koristiš pooled URL i migracije prave problem, prebaci na direct URL.
+
+### Problem: admin user nije kreiran
+
+Render start command mora sadržavati:
+
+```text
+npm run db:migrate && npm run db:seed && npm start
+```
+
+Seed kreira admin korisnika iz:
+
+```env
+ADMIN_EMAIL
+ADMIN_PASSWORD
+```
+
+### Problem: Render free je spor
+
+To je normalno. Render free instance spava kad nema aktivnosti. Prvi request može čekati 50+ sekundi.
+
+## 8. Finalna tačna konfiguracija
+
+### Render backend
+
+```text
+Root Directory: backend
+Build Command: npm install && npm run db:generate && npm run build
+Start Command: npm run db:migrate && npm run db:seed && npm start
+```
+
+Environment:
+
+```env
+NODE_ENV=production
+PORT=4000
+DATABASE_URL=postgresql://...neon.tech/...?...sslmode=require
+JWT_SECRET=dug_random_secret
+JWT_EXPIRES_IN=7d
+ADMIN_EMAIL=admin@sifahidzama.ba
+ADMIN_PASSWORD=JakaLozinka123!
+FRONTEND_URL=https://hidzama.vercel.app
+BACKEND_URL=https://hidzama.onrender.com
+SMTP_HOST=smtp.gmail.com
+SMTP_PORT=587
+SMTP_SECURE=false
+SMTP_USER=tvojgmail@gmail.com
+SMTP_PASS=google_app_password
+MAIL_FROM=Sifa Hidžama <tvojgmail@gmail.com>
+NOTIFY_EMAIL=tvojgmail@gmail.com
+```
+
+### Vercel frontend
+
+```text
+Root Directory: frontend
+Framework: Vite
+Build Command: npm run build
+Output Directory: dist
+Install Command: npm install
+```
+
+Environment:
+
+```env
+VITE_API_URL=https://hidzama.onrender.com/api
+```
+
+## 9. Redoslijed deploya
+
+Najlakši redoslijed:
+
+1. Neon baza
+2. Render backend
+3. Provjeri `https://render-url/health`
+4. Provjeri `https://render-url/api/services`
+5. Vercel frontend
+6. U Render `FRONTEND_URL` postavi na Vercel URL
+7. Redeploy Render
+8. Test login
+9. Test booking
+10. Test email

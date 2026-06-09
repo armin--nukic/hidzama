@@ -30,6 +30,7 @@ Example:
 
 ```env
 DATABASE_URL=postgresql://USER:PASSWORD@HOST/DB?sslmode=require
+postgresql://neondb_owner:npg_jKJ9MAR5wmuY@ep-quiet-hall-apqfadiy.c-7.us-east-1.aws.neon.tech/neondb?sslmode=require
 ```
 
 ## 3. Free Backend Deploy

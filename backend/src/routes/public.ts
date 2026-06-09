@@ -63,7 +63,7 @@ publicRouter.get('/availability', async (req, res) => {
     },
     select: { time: true }
   });
-  const bookedSlots = booked.map((item) => item.time);
+  const bookedSlots = booked.map((item: { time: string }) => item.time);
   const blocked = new Set(bookedSlots);
   return res.json({
     all: timeSlots,
@@ -127,5 +127,5 @@ publicRouter.post('/contact', async (req, res, next) => {
 
 publicRouter.get('/settings', async (_req, res) => {
   const settings = await prisma.setting.findMany();
-  res.json(Object.fromEntries(settings.map((setting) => [setting.key, setting.value])));
+  res.json(Object.fromEntries(settings.map((setting: { key: string; value: string }) => [setting.key, setting.value])));
 });
