@@ -307,6 +307,43 @@ NOTIFY_EMAIL=amirov.email@gmail.com
 
 ## 7. Najčešći problemi
 
+### Problem: `Invalid email` za `NOTIFY_EMAIL` ili `ADMIN_EMAIL`
+
+Ovo znači da je u Render Environment Variables vrijednost pogrešno upisana. Neon/Postgres nije problem ako log pokazuje:
+
+```text
+PostgreSQL database "neondb", schema "public" at "ep-..."
+```
+
+U Renderu popravi ove vrijednosti:
+
+```env
+ADMIN_EMAIL=admin@sifahidzama.ba
+NOTIFY_EMAIL=tvojgmail@gmail.com
+```
+
+Ne smije biti:
+
+```env
+ADMIN_EMAIL=admin
+NOTIFY_EMAIL=none
+NOTIFY_EMAIL=postgresql://...
+NOTIFY_EMAIL=tvojgmail@gmail.com, drugi@gmail.com
+```
+
+Ako još nemaš Gmail za notifikacije, privremeno stavi:
+
+```env
+ADMIN_EMAIL=admin@sifahidzama.ba
+NOTIFY_EMAIL=admin@sifahidzama.ba
+```
+
+Nakon izmjene klikni:
+
+```text
+Manual Deploy -> Deploy latest commit
+```
+
 ### Problem: Render build failed sa TS7016
 
 Rješenje:
