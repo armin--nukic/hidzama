@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900">
+  <rect width="1200" height="900" fill="#f8f1df"/>
+  <path d="M0 590c150-120 300-160 450-120s270 20 360-60 220-100 390-35v525H0Z" fill="#1f5c4a" opacity=".22"/>
+  <path d="M820 130h150a75 75 0 0 1 75 75v430H745V205a75 75 0 0 1 75-75Z" fill="#c99a42" opacity=".48"/>
+  <rect x="140" y="145" width="540" height="560" rx="24" fill="#fffaf0"/>
+  <circle cx="415" cy="365" r="130" fill="#dfe8df"/>
+  <path d="M310 390c70 58 140 58 210 0" fill="none" stroke="#1f5c4a" stroke-width="16" stroke-linecap="round"/>
+  <g fill="#b98b3f"><circle cx="340" cy="340" r="18"/><circle cx="490" cy="340" r="18"/></g>
+  <text x="190" y="590" font-family="Georgia, serif" font-size="62" fill="#1f5c4a">Mir i oporavak</text>
+  <text x="190" y="650" font-family="Arial, sans-serif" font-size="31" fill="#17211d">Tretmani prilagođeni Vašem stanju</text>
+  <text x="760" y="710" font-family="Arial, sans-serif" font-size="38" font-weight="700" fill="#1f5c4a">061 497 647</text>
+</svg>

@@ -1,0 +1,64 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-sifa}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-sifa_secure_password}
+      POSTGRES_DB: ${POSTGRES_DB:-sifa_hijama}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-sifa} -d ${POSTGRES_DB:-sifa_hijama}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build:
+      context: ./backend
+    restart: unless-stopped
+    environment:
+      DATABASE_URL: ${DATABASE_URL:-postgresql://sifa:sifa_secure_password@postgres:5432/sifa_hijama?schema=public}
+      JWT_SECRET: ${JWT_SECRET:-local_development_secret_change_before_production}
+      JWT_EXPIRES_IN: ${JWT_EXPIRES_IN:-7d}
+      ADMIN_EMAIL: ${ADMIN_EMAIL:-admin@sifahidzama.ba}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD:-Admin123!ChangeMe}
+      FRONTEND_URL: ${FRONTEND_URL:-http://localhost:3000}
+      BACKEND_URL: ${BACKEND_URL:-http://localhost:4000}
+      SMTP_HOST: ${SMTP_HOST:-mailhog}
+      SMTP_PORT: ${SMTP_PORT:-1025}
+      SMTP_SECURE: ${SMTP_SECURE:-false}
+      MAIL_FROM: ${MAIL_FROM:-Sifa Hijama <no-reply@sifahidzama.ba>}
+      NOTIFY_EMAIL: ${NOTIFY_EMAIL:-info@sifahidzama.ba}
+    depends_on:
+      postgres:
+        condition: service_healthy
+    ports:
+      - "4000:4000"
+    volumes:
+      - backend_uploads:/app/uploads
+    command: sh -c "npx prisma migrate deploy && npm run db:seed && npm start"
+
+  frontend:
+    build:
+      context: ./frontend
+      args:
+        VITE_API_URL: ${BACKEND_URL:-http://localhost:4000}/api
+    restart: unless-stopped
+    depends_on:
+      - backend
+    ports:
+      - "3000:80"
+
+  mailhog:
+    image: mailhog/mailhog:v1.0.1
+    restart: unless-stopped
+    ports:
+      - "8025:8025"
+
+volumes:
+  postgres_data:
+  backend_uploads:

@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 960" role="img" aria-labelledby="title desc">
+  <title id="title">Amir Uzunović</title>
+  <desc id="desc">Professional placeholder portrait for Amir Uzunović.</desc>
+  <rect width="760" height="960" fill="#f8f6ef"/>
+  <rect x="80" y="90" width="600" height="780" rx="28" fill="#dfe8df"/>
+  <circle cx="380" cy="260" r="118" fill="#d2a177"/>
+  <path d="M250 255c20-105 74-150 163-136 64 10 102 53 112 128-50-35-99-48-148-39-45 8-87 24-127 47Z" fill="#5d3d2d"/>
+  <path d="M180 850c28-220 96-340 200-340s172 120 200 340H180Z" fill="#fff"/>
+  <path d="M300 520h160l-40 260h-80l-40-260Z" fill="#88b9dc"/>
+  <path d="M180 850h400l-40-260c-38-52-84-80-137-84l-23 180-23-180c-54 4-99 32-137 84l-40 260Z" fill="#fff"/>
+  <path d="M270 675h80M410 675h80" stroke="#d8d8d8" stroke-width="12" stroke-linecap="round"/>
+  <text x="380" y="905" text-anchor="middle" font-family="Arial, sans-serif" font-size="42" font-weight="700" fill="#1f5c4a">Amir Uzunović</text>
+</svg>

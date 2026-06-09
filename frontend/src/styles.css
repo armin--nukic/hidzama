@@ -1,0 +1,142 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+  --color-ink: 23 33 29;
+  --color-forest: 31 92 74;
+  --color-sage: 223 232 223;
+  --color-gold: 185 139 63;
+  --color-clay: 181 107 74;
+  --color-pearl: 248 246 239;
+  background: #f8f6ef;
+  color: #17211d;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+html.dark {
+  color-scheme: dark;
+  --color-ink: 232 238 232;
+  --color-forest: 68 151 123;
+  --color-sage: 38 52 46;
+  --color-gold: 215 172 87;
+  --color-clay: 207 117 86;
+  --color-pearl: 14 20 18;
+  background: #0e1412;
+  color: #e8eee8;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  background: rgb(var(--color-pearl));
+  color: rgb(var(--color-ink));
+}
+
+html.dark .bg-white {
+  background-color: rgb(21 30 26);
+}
+
+html.dark .bg-white\/85 {
+  background-color: rgb(21 30 26 / .88);
+}
+
+html.dark .bg-white\/95 {
+  background-color: rgb(21 30 26 / .94);
+}
+
+html.dark input,
+html.dark select,
+html.dark textarea {
+  background-color: rgb(18 26 22);
+  color: rgb(var(--color-ink));
+}
+
+html.dark img {
+  color-scheme: light;
+}
+
+.pattern {
+  background-image:
+    linear-gradient(30deg, rgba(31, 92, 74, 0.08) 12%, transparent 12.5%, transparent 87%, rgba(31, 92, 74, 0.08) 87.5%, rgba(31, 92, 74, 0.08)),
+    linear-gradient(150deg, rgba(185, 139, 63, 0.10) 12%, transparent 12.5%, transparent 87%, rgba(185, 139, 63, 0.10) 87.5%, rgba(185, 139, 63, 0.10));
+  background-size: 56px 98px;
+}
+
+.focus-ring {
+  @apply focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold;
+}
+
+.hero-slide {
+  animation: hero-kenburns 10s ease-in-out infinite alternate;
+}
+
+@keyframes hero-kenburns {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.06);
+  }
+}
+
+.flag-bs,
+.flag-en {
+  position: relative;
+  display: inline-block;
+  width: 1.35rem;
+  height: .95rem;
+  overflow: hidden;
+  border-radius: .18rem;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .15);
+  background: #1f5caa;
+}
+
+.flag-bs::before {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 0;
+  border-top: .95rem solid #f2c230;
+  border-left: .58rem solid transparent;
+}
+
+.flag-bs::after {
+  content: "*****";
+  position: absolute;
+  left: .08rem;
+  top: -.05rem;
+  color: #fff;
+  font-size: .38rem;
+  line-height: .22rem;
+  width: .22rem;
+  word-break: break-all;
+}
+
+.flag-en {
+  background: repeating-linear-gradient(to bottom, #b22234 0 7.69%, #fff 7.69% 15.38%);
+}
+
+.flag-en::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: .62rem;
+  height: .52rem;
+  background: #3c3b6e;
+}
+
+.flag-en::after {
+  content: "****";
+  position: absolute;
+  left: .07rem;
+  top: .03rem;
+  color: #fff;
+  font-size: .23rem;
+  letter-spacing: .02rem;
+}

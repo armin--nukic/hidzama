@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900">
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop stop-color="#17211d"/>
+      <stop offset=".55" stop-color="#1f5c4a"/>
+      <stop offset="1" stop-color="#b98b3f"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="900" fill="url(#bg)"/>
+  <circle cx="600" cy="355" r="230" fill="#f8f6ef"/>
+  <circle cx="600" cy="355" r="205" fill="#070707"/>
+  <circle cx="600" cy="355" r="170" fill="#f4c51f"/>
+  <text x="600" y="385" text-anchor="middle" font-family="Arial Black, Arial, sans-serif" font-size="96" fill="#fff" stroke="#111" stroke-width="4" paint-order="stroke">SHIFA</text>
+  <text x="600" y="515" text-anchor="middle" font-family="Georgia, serif" font-size="40" font-style="italic" fill="#fff">since 2006</text>
+  <text x="600" y="680" text-anchor="middle" font-family="Arial, sans-serif" font-size="62" font-weight="700" fill="#fff">Sifa Hidžama</text>
+  <text x="600" y="740" text-anchor="middle" font-family="Arial, sans-serif" font-size="34" fill="#fff" opacity=".82">Porječani, Visoko • 061 497 647</text>
+</svg>

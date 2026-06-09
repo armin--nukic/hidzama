@@ -1,0 +1,138 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  ADMIN
+  STAFF
+}
+
+enum AppointmentStatus {
+  PENDING
+  APPROVED
+  REJECTED
+  RESCHEDULED
+  COMPLETED
+}
+
+model User {
+  id        String   @id @default(cuid())
+  name      String
+  email     String   @unique
+  password  String
+  role      Role     @default(STAFF)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("users")
+}
+
+model Service {
+  id          String        @id @default(cuid())
+  slug        String        @unique
+  titleBs     String
+  titleEn     String
+  summaryBs   String
+  summaryEn   String
+  descriptionBs String
+  descriptionEn String
+  durationMin Int
+  priceBam    Decimal       @db.Decimal(10, 2)
+  isActive    Boolean       @default(true)
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  appointments Appointment[]
+
+  @@map("services")
+}
+
+model Category {
+  id        String     @id @default(cuid())
+  slug      String     @unique
+  nameBs    String
+  nameEn    String
+  createdAt DateTime   @default(now())
+  posts     BlogPost[]
+
+  @@map("categories")
+}
+
+model BlogPost {
+  id          String    @id @default(cuid())
+  slug        String    @unique
+  titleBs     String
+  titleEn     String
+  excerptBs   String
+  excerptEn   String
+  contentBs   String
+  contentEn   String
+  coverImage  String?
+  published   Boolean   @default(false)
+  publishedAt DateTime?
+  categoryId  String?
+  category    Category? @relation(fields: [categoryId], references: [id], onDelete: SetNull)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@map("blog_posts")
+}
+
+model Testimonial {
+  id        String   @id @default(cuid())
+  name      String
+  quoteBs   String
+  quoteEn   String
+  rating    Int      @default(5)
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("testimonials")
+}
+
+model Appointment {
+  id            String            @id @default(cuid())
+  serviceId     String
+  service       Service           @relation(fields: [serviceId], references: [id])
+  date          DateTime
+  time          String
+  status        AppointmentStatus @default(PENDING)
+  customerName  String
+  customerEmail String
+  customerPhone String
+  notes         String?
+  adminNote     String?
+  createdAt     DateTime          @default(now())
+  updatedAt     DateTime          @updatedAt
+
+  @@index([date, time])
+  @@map("appointments")
+}
+
+model ContactMessage {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  phone     String?
+  subject   String
+  message   String
+  isRead    Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  @@map("contact_messages")
+}
+
+model Setting {
+  id        String   @id @default(cuid())
+  key       String   @unique
+  value     String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("settings")
+}

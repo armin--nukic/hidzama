@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900">
+  <defs><linearGradient id="bg" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#f8f6ef"/><stop offset="1" stop-color="#dfe8df"/></linearGradient></defs>
+  <rect width="1200" height="900" fill="url(#bg)"/>
+  <circle cx="980" cy="160" r="220" fill="#b98b3f" opacity=".22"/>
+  <circle cx="230" cy="710" r="270" fill="#1f5c4a" opacity=".16"/>
+  <rect x="120" y="110" width="960" height="680" rx="28" fill="#fff" opacity=".78"/>
+  <path d="M720 220c-95 60-140 145-133 254 7 112 77 182 210 209 79-45 128-104 146-177 27-113-23-208-151-286-23-14-49-14-72 0Z" fill="#efd7a1"/>
+  <path d="M670 355h300M645 445h340M690 535h260" stroke="#1f5c4a" stroke-width="6" stroke-linecap="round" opacity=".55"/>
+  <g stroke="#17211d" stroke-width="4" stroke-linecap="round"><path d="M705 260 590 625"/><path d="M800 250 745 655"/><path d="M890 290 875 635"/></g>
+  <g fill="#b98b3f"><circle cx="705" cy="260" r="9"/><circle cx="800" cy="250" r="9"/><circle cx="890" cy="290" r="9"/></g>
+  <text x="165" y="285" font-family="Georgia, serif" font-size="74" fill="#1f5c4a">Akupunktura</text>
+  <text x="165" y="360" font-family="Arial, sans-serif" font-size="37" fill="#17211d">Precizan, smiren i individualan pristup</text>
+  <text x="165" y="438" font-family="Arial, sans-serif" font-size="31" fill="#17211d" opacity=".72">Sifa Hidžama • Porječani, Visoko</text>
+</svg>

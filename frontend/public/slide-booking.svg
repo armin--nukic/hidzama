@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900">
+  <rect width="1200" height="900" fill="#11231d"/>
+  <circle cx="950" cy="180" r="210" fill="#b98b3f" opacity=".36"/>
+  <circle cx="220" cy="720" r="260" fill="#1f5c4a" opacity=".55"/>
+  <rect x="140" y="130" width="920" height="640" rx="30" fill="#f8f6ef"/>
+  <rect x="205" y="210" width="330" height="90" rx="18" fill="#1f5c4a"/>
+  <text x="250" y="268" font-family="Arial, sans-serif" font-size="34" font-weight="700" fill="#fff">Rezervacija</text>
+  <g fill="#dfe8df">
+    <rect x="205" y="350" width="160" height="90" rx="18"/>
+    <rect x="390" y="350" width="160" height="90" rx="18"/>
+    <rect x="575" y="350" width="160" height="90" rx="18"/>
+    <rect x="760" y="350" width="160" height="90" rx="18"/>
+  </g>
+  <g fill="#b98b3f">
+    <rect x="205" y="485" width="160" height="90" rx="18"/>
+    <rect x="575" y="485" width="160" height="90" rx="18"/>
+  </g>
+  <text x="205" y="660" font-family="Arial, sans-serif" font-size="42" font-weight="700" fill="#17211d">Odaberite slobodan termin</text>
+  <text x="205" y="712" font-family="Arial, sans-serif" font-size="30" fill="#1f5c4a">061 497 647</text>
+</svg>

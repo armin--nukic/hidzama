@@ -1,0 +1,16 @@
+{
+  "name": "sifa-hijama",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Production-ready full-stack web application for Sifa Hijama clinic.",
+  "scripts": {
+    "dev": "docker compose up --build",
+    "start": "docker compose up -d",
+    "stop": "docker compose down",
+    "logs": "docker compose logs -f",
+    "seed": "docker compose exec backend npm run db:seed"
+  },
+  "engines": {
+    "node": ">=22.0.0"
+  }
+}

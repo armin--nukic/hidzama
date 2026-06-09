@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900">
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop stop-color="#f8f1df"/>
+      <stop offset="1" stop-color="#c99a42"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="900" fill="url(#bg)"/>
+  <rect x="80" y="90" width="1040" height="720" rx="28" fill="#fff8e8" opacity=".72"/>
+  <path d="M870 120h140a70 70 0 0 1 70 70v390h-280V190a70 70 0 0 1 70-70Z" fill="#d89e36" opacity=".55"/>
+  <path d="M160 670c130-115 286-155 468-120 148 29 265-8 412-106v300H160Z" fill="#1f5c4a" opacity=".18"/>
+  <g fill="#f6f0df" stroke="#1f5c4a" stroke-width="8">
+    <circle cx="725" cy="495" r="62"/>
+    <circle cx="870" cy="515" r="58"/>
+    <circle cx="1010" cy="535" r="52"/>
+    <path d="M692 488c0 48 66 48 66 0" fill="#b56b4a" opacity=".7"/>
+    <path d="M840 510c0 44 60 44 60 0" fill="#b56b4a" opacity=".7"/>
+    <path d="M984 532c0 40 52 40 52 0" fill="#b56b4a" opacity=".7"/>
+  </g>
+  <text x="150" y="285" font-family="Georgia, serif" font-size="82" fill="#1f5c4a">Sigurno</text>
+  <text x="150" y="370" font-family="Arial, sans-serif" font-size="44" fill="#17211d">Sterilno. Mirno. Profesionalno.</text>
+  <text x="150" y="455" font-family="Arial, sans-serif" font-size="34" fill="#17211d" opacity=".72">Porječani, Visoko</text>
+</svg>

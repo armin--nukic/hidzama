@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#f8f6ef"/>
+  <path d="M0 480 C180 410 300 550 470 472 C650 390 760 300 930 350 C1050 385 1110 455 1200 420 L1200 630 L0 630 Z" fill="#dfe8df"/>
+  <circle cx="930" cy="170" r="92" fill="#1f5c4a"/>
+  <circle cx="930" cy="170" r="54" fill="#f8f6ef"/>
+  <circle cx="930" cy="170" r="26" fill="#b98b3f"/>
+  <text x="96" y="250" fill="#17211d" font-family="Arial, sans-serif" font-size="78" font-weight="700">Sifa Hidžama</text>
+  <text x="100" y="326" fill="#1f5c4a" font-family="Arial, sans-serif" font-size="32">Porječani, Visoko • Amir Uzunović • 061 497 647</text>
+</svg>
