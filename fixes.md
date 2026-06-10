@@ -269,3 +269,47 @@ NOTIFY_EMAIL=testict119@gmail.com
 ```
 
 `SMTP_PASS` nije normalna Gmail lozinka. Mora biti Google App Password.
+
+## 11. Blog se ne prikazuje na produkciji
+
+Ako stranica radi, services rade, health je OK, ali blog se ne prikazuje, provjeri direktno API:
+
+```text
+https://tvoj-render-backend.onrender.com/api/blog
+```
+
+Ako vrati:
+
+```json
+[]
+```
+
+onda Neon baza nema objavljene blogove. Rješenja:
+
+1. Render backend mora imati start command:
+
+```text
+npm run db:migrate && npm run db:seed && npm start
+```
+
+2. Na Renderu klikni:
+
+```text
+Manual Deploy -> Deploy latest commit
+```
+
+3. Ili se prijavi u admin panel i dodaj blog:
+
+```text
+/admin/posts -> Add blog -> Published uključeno
+```
+
+Frontend sada ima fallback edukativne tekstove, pa public blog neće ostati prazan čak i ako API vrati prazan niz ili server trenutno ne vrati blogove.
+
+Ako API vrati blogove, ali Vercel ne prikazuje, provjeri Vercel env:
+
+```env
+VITE_API_URL=https://tvoj-render-backend.onrender.com/api
+```
+
+Nakon promjene `VITE_API_URL`, obavezno redeploy frontend na Vercelu.

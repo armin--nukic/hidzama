@@ -15,6 +15,14 @@ import { errorHandler, notFound } from './middleware/error.js';
 import { csrfProtection, issueCsrfToken } from './middleware/csrf.js';
 
 const app = express();
+const allowedOrigins = new Set([
+  env.FRONTEND_URL,
+  'http://localhost:3000',
+  'http://localhost:3100',
+  'http://127.0.0.1:3000',
+  'http://127.0.0.1:3100',
+  ...(env.CORS_ORIGINS ? env.CORS_ORIGINS.split(',').map((origin) => origin.trim()).filter(Boolean) : [])
+]);
 
 app.set('trust proxy', 1);
 app.use(helmet({
@@ -25,7 +33,10 @@ app.use(morgan(env.NODE_ENV === 'production' ? 'combined' : 'dev'));
 app.use(express.json({ limit: '1mb' }));
 app.use(cookieParser());
 app.use(cors({
-  origin: [env.FRONTEND_URL, 'http://localhost:3000'],
+  origin(origin, callback) {
+    if (!origin || allowedOrigins.has(origin)) return callback(null, true);
+    return callback(new Error(`CORS origin not allowed: ${origin}`));
+  },
   credentials: true
 }));
 app.use(rateLimit({
@@ -39,6 +50,7 @@ app.use('/uploads', express.static(path.resolve('uploads'), {
   maxAge: env.NODE_ENV === 'production' ? '7d' : 0
 }));
 
+app.get('/', (_req, res) => res.json({ ok: true, service: 'sifa-hijama-api', health: '/health', api: '/api' }));
 app.get('/health', (_req, res) => res.json({ ok: true, service: 'sifa-hijama-api' }));
 app.use('/api/auth', authRouter);
 app.use('/api/admin', adminRouter);

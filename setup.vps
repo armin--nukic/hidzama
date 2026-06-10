@@ -1,0 +1,115 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+APP_DIR="${APP_DIR:-/opt/sifa-hidzama}"
+DOMAIN="${DOMAIN:-sifahidzama.ba}"
+API_DOMAIN="${API_DOMAIN:-}"
+FRONTEND_PORT="${FRONTEND_PORT:-3100}"
+BACKEND_PORT="${BACKEND_PORT:-4100}"
+POSTGRES_PORT="${POSTGRES_PORT:-55432}"
+MAILHOG_PORT="${MAILHOG_PORT:-18025}"
+
+echo "Setting up Sifa Hidžama VPS environment"
+echo "App dir:       ${APP_DIR}"
+echo "Domain:        ${DOMAIN}"
+echo "API domain:    ${API_DOMAIN:-same domain /api}"
+echo "Frontend port: ${FRONTEND_PORT}"
+echo "Backend port:  ${BACKEND_PORT}"
+
+if ! command -v docker >/dev/null 2>&1; then
+  echo "Installing Docker..."
+  curl -fsSL https://get.docker.com | sh
+fi
+
+if ! docker compose version >/dev/null 2>&1; then
+  echo "Docker Compose plugin was not found. Re-login or install docker-compose-plugin."
+  exit 1
+fi
+
+mkdir -p "${APP_DIR}"
+
+if [ ! -f "${APP_DIR}/.env" ]; then
+  cat > "${APP_DIR}/.env" <<EOF
+POSTGRES_BIND_IP=127.0.0.1
+POSTGRES_PORT=${POSTGRES_PORT}
+POSTGRES_USER=sifa
+POSTGRES_PASSWORD=change_this_database_password
+POSTGRES_DB=sifa_hijama
+DATABASE_URL=postgresql://sifa:change_this_database_password@postgres:5432/sifa_hijama?schema=public
+
+FRONTEND_BIND_IP=127.0.0.1
+FRONTEND_PORT=${FRONTEND_PORT}
+BACKEND_BIND_IP=127.0.0.1
+BACKEND_PORT=${BACKEND_PORT}
+MAILHOG_BIND_IP=127.0.0.1
+MAILHOG_PORT=${MAILHOG_PORT}
+
+JWT_SECRET=change_this_to_a_very_long_random_secret_min_32_chars
+JWT_EXPIRES_IN=7d
+ADMIN_EMAIL=admin@sifahidzama.ba
+ADMIN_PASSWORD=change_this_admin_password
+
+FRONTEND_URL=https://${DOMAIN}
+BACKEND_URL=https://${DOMAIN}
+VITE_API_URL=/api
+CORS_ORIGINS=https://${DOMAIN},https://www.${DOMAIN}
+
+SMTP_HOST=smtp.gmail.com
+SMTP_PORT=587
+SMTP_SECURE=false
+SMTP_USER=yourgmail@gmail.com
+SMTP_PASS=google_app_password
+MAIL_FROM=Šifa Hidžama <yourgmail@gmail.com>
+NOTIFY_EMAIL=testict119@gmail.com
+EOF
+  echo "Created ${APP_DIR}/.env"
+else
+  echo "${APP_DIR}/.env already exists; not overwriting."
+fi
+
+cat > "${APP_DIR}/nginx-sifa-example.conf" <<EOF
+server {
+  listen 80;
+  server_name ${DOMAIN} www.${DOMAIN};
+
+  location /api/ {
+    proxy_pass http://127.0.0.1:${BACKEND_PORT}/api/;
+    proxy_set_header Host \$host;
+    proxy_set_header X-Real-IP \$remote_addr;
+    proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
+    proxy_set_header X-Forwarded-Proto \$scheme;
+  }
+
+  location /uploads/ {
+    proxy_pass http://127.0.0.1:${BACKEND_PORT}/uploads/;
+    proxy_set_header Host \$host;
+    proxy_set_header X-Real-IP \$remote_addr;
+    proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
+    proxy_set_header X-Forwarded-Proto \$scheme;
+  }
+
+  location /health {
+    proxy_pass http://127.0.0.1:${BACKEND_PORT}/health;
+    proxy_set_header Host \$host;
+    proxy_set_header X-Real-IP \$remote_addr;
+    proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
+    proxy_set_header X-Forwarded-Proto \$scheme;
+  }
+
+  location / {
+    proxy_pass http://127.0.0.1:${FRONTEND_PORT};
+    proxy_set_header Host \$host;
+    proxy_set_header X-Real-IP \$remote_addr;
+    proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
+    proxy_set_header X-Forwarded-Proto \$scheme;
+  }
+}
+EOF
+
+echo "Created ${APP_DIR}/nginx-sifa-example.conf"
+echo
+echo "Next steps:"
+echo "1. Copy project files into ${APP_DIR}, or git clone the repo there."
+echo "2. Edit ${APP_DIR}/.env and replace all change_this values."
+echo "3. Run: cd ${APP_DIR} && docker compose up -d --build"
+echo "4. Put nginx-sifa-example.conf into your reverse proxy config, then add SSL."

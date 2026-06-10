@@ -13,6 +13,7 @@ const schema = z.object({
   JWT_EXPIRES_IN: trimmedString().default('7d'),
   FRONTEND_URL: trimmedString().url().default('http://localhost:3000'),
   BACKEND_URL: trimmedString().url().default('http://localhost:4000'),
+  CORS_ORIGINS: trimmedString().optional(),
   SMTP_HOST: trimmedString().default('mailhog'),
   SMTP_PORT: z.coerce.number().default(1025),
   SMTP_SECURE: z.coerce.boolean().default(false),

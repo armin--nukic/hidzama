@@ -31,6 +31,33 @@ const fallbackTestimonials = [
   }
 ];
 
+const fallbackPosts: BlogPost[] = [
+  {
+    id: 'home-fallback-sta-je-hidzama',
+    slug: 'sta-je-hidzama',
+    titleBs: 'Šta je hidžama?',
+    titleEn: 'What is Hijama?',
+    excerptBs: 'Kratak uvod u terapiju čašama, njenu tradiciju i savremeni pristup.',
+    excerptEn: 'A short introduction to cupping therapy, its tradition and modern practice.',
+    contentBs: '',
+    contentEn: '',
+    publishedAt: new Date().toISOString(),
+    category: { slug: 'edukacija', nameBs: 'Edukacija', nameEn: 'Education' }
+  },
+  {
+    id: 'home-fallback-priprema',
+    slug: 'kako-se-pripremiti-za-termin',
+    titleBs: 'Kako se pripremiti za termin',
+    titleEn: 'How to prepare for your appointment',
+    excerptBs: 'Praktični savjeti prije dolaska na tretman.',
+    excerptEn: 'Practical tips before arriving for therapy.',
+    contentBs: '',
+    contentEn: '',
+    publishedAt: new Date().toISOString(),
+    category: { slug: 'savjeti', nameBs: 'Savjeti', nameEn: 'Tips' }
+  }
+];
+
 export function Home() {
   const { t, i18n } = useTranslation();
   const { data: services = [] } = useQuery({ queryKey: ['services'], queryFn: () => api<Service[]>('/services') });
@@ -42,6 +69,7 @@ export function Home() {
     { icon: Sparkles, textBs: 'Smiren ambijent i diskrecija', textEn: 'Calm setting and discretion' }
   ];
   const shownTestimonials = [...testimonials.map((item, index) => ({ ...item, image: fallbackTestimonials[index % fallbackTestimonials.length].image })), ...fallbackTestimonials].slice(0, 3);
+  const shownPosts = posts.length > 0 ? posts : fallbackPosts;
 
   return (
     <>
@@ -63,6 +91,12 @@ export function Home() {
                 <p className="mt-1 text-xs font-semibold text-ink/65">{text}</p>
               </div>
             ))}
+          </div>
+          <div className="mx-auto mt-6 grid max-w-5xl gap-3 px-3 text-center text-xs font-extrabold uppercase tracking-[0.16em] text-ink/55 sm:grid-cols-4">
+            <span className="rounded-full border border-forest/10 bg-white/45 px-3 py-2">Sterilno</span>
+            <span className="rounded-full border border-forest/10 bg-white/45 px-3 py-2">Diskretno</span>
+            <span className="rounded-full border border-forest/10 bg-white/45 px-3 py-2">Online termin</span>
+            <span className="rounded-full border border-forest/10 bg-white/45 px-3 py-2">Od 2006</span>
           </div>
         </div>
       </section>
@@ -135,7 +169,7 @@ export function Home() {
       <Section muted>
         <h2 className="font-display text-4xl font-bold">{t('home.latest')}</h2>
         <div className="mt-8 grid gap-4 md:grid-cols-2">
-          {posts.slice(0, 2).map((post) => (
+          {shownPosts.slice(0, 2).map((post) => (
             <Link key={post.id} to={`/blog/${post.slug}`} className="focus-ring surface-card rounded-[8px] p-6">
               <h3 className="text-xl font-extrabold">{localized(post, 'title', i18n.language)}</h3>
               <p className="mt-3 leading-7 text-ink/70">{localized(post, 'excerpt', i18n.language)}</p>

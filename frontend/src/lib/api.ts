@@ -25,7 +25,7 @@ export type BlogPost = {
   coverImage?: string | null;
   published?: boolean;
   publishedAt: string;
-  category?: { nameBs: string; nameEn: string; slug: string };
+  category?: { nameBs: string; nameEn: string; slug: string } | null;
 };
 
 export type Testimonial = {

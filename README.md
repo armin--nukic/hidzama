@@ -19,9 +19,11 @@ docker compose up -d --build
 
 Open:
 
-- Website: http://localhost:3000
-- API health: http://localhost:4000/health
-- MailHog email inbox: http://localhost:8025
+- Website: http://localhost:3100
+- API health: http://localhost:4100/health
+- MailHog email inbox: http://localhost:18025
+
+Docker Compose binds services to `127.0.0.1` by default and uses VPS-safe host ports so it does not interfere with other apps using `localhost:3000`, `4000`, standard PostgreSQL `5432`, or Redis `6379`.
 
 Default admin:
 
