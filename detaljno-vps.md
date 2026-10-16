@@ -252,7 +252,7 @@ server {
   server_name hidzama.ice.lol;
 
   location /api/ {
-    proxy_pass http://127.0.0.1:4100/api/;
+    proxy_pass http://127.0.0.1:4100;
     proxy_set_header Host $host;
     proxy_set_header X-Real-IP $remote_addr;
     proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
@@ -260,7 +260,7 @@ server {
   }
 
   location /uploads/ {
-    proxy_pass http://127.0.0.1:4100/uploads/;
+    proxy_pass http://127.0.0.1:4100;
     proxy_set_header Host $host;
     proxy_set_header X-Real-IP $remote_addr;
     proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
@@ -462,7 +462,7 @@ server {
   server_name vozilo.ice.lol;
 
   location /api/ {
-    proxy_pass http://127.0.0.1:4200/api/;
+    proxy_pass http://127.0.0.1:4200;
     proxy_set_header Host $host;
     proxy_set_header X-Real-IP $remote_addr;
     proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
@@ -470,7 +470,7 @@ server {
   }
 
   location /uploads/ {
-    proxy_pass http://127.0.0.1:4200/uploads/;
+    proxy_pass http://127.0.0.1:4200;
     proxy_set_header Host $host;
     proxy_set_header X-Real-IP $remote_addr;
     proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
